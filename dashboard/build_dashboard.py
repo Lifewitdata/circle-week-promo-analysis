@@ -44,7 +44,7 @@ plt.rcParams.update({
 # ---------------------------------------------------------------------
 # 1. Load data
 # ---------------------------------------------------------------------
-BASE = "/home/claude/target_promo_project"
+BASE = "target_promo_project"
 sales = pd.read_csv(f"{BASE}/data/sales_weekly.csv")
 stores = pd.read_csv(f"{BASE}/data/stores.csv")
 with open(f"{BASE}/dashboard/data.json") as f:
