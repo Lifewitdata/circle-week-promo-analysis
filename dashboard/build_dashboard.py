@@ -1,11 +1,4 @@
-"""
-Circle Week - Electronics Promo Dashboard (pure Python / matplotlib)
-----------------------------------------------------------------------
-Builds a single static dashboard image straight from the source data.
-No browser, no JavaScript, no internet connection required - just run
-this script and it produces a PNG (and a PDF) you can open anywhere
-or drop into a slide deck / report.
-"""
+
 import json
 import pandas as pd
 import numpy as np
