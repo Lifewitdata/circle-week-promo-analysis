@@ -1,0 +1,2 @@
+promo_id,promo_name,category_targeted,promo_start_date,promo_end_date,design,expected_mechanism
+PROMO_ELEC_CIRCLE_WK,Circle Week - Electronics Deal Days,Electronics,2026-04-06,2026-07-05,"Test vs Control stores, pre/post comparison","20% off select electronics + Target Circle bonus points, test stores only"

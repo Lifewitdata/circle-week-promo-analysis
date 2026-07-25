@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Week — Electronics Promo Effectiveness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#101114;
+    --panel:#17181c;
+    --panel-2:#1c1e23;
+    --border:#26282e;
+    --text:#f2f1ed;
+    --muted:#8b8d95;
+    --red:#e23744;
+    --red-dim:#5a2126;
+    --teal:#3ec1b3;
+    --green:#4ade80;
+    --green-bg:#182620;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:40px 28px 80px;}
+
+  /* header */
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:38px;
+    line-height:1.1;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subhead{color:var(--muted);font-size:15px;max-width:640px;line-height:1.5;margin-bottom:36px;}
+
+  /* hero row */
+  .hero{
+    display:grid;
+    grid-template-columns:260px 1fr 1fr 1fr;
+    gap:20px;
+    margin-bottom:36px;
+  }
+  @media(max-width:900px){.hero{grid-template-columns:1fr;}}
+
+  .tag{
+    position:relative;
+    background:var(--red);
+    border-radius:10px;
+    padding:22px 22px 24px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    transform:rotate(-2deg);
+    box-shadow:0 14px 30px -10px rgba(226,55,68,.45);
+  }
+  .tag::before{
+    content:"";
+    position:absolute;
+    top:14px;left:14px;
+    width:10px;height:10px;
+    border-radius:50%;
+    background:var(--bg);
+    box-shadow:inset 0 0 0 2px rgba(0,0,0,.15);
+  }
+  .tag-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.85);
+    margin-bottom:6px;
+  }
+  .tag-value{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:52px;
+    line-height:1;
+    color:#fff;
+  }
+  .tag-sub{
+    font-size:12.5px;
+    color:rgba(255,255,255,.85);
+    margin-top:8px;
+  }
+
+  .stat{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px 22px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .stat-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .stat-value{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:28px;
+  }
+  .stat-value.mono{font-family:'IBM Plex Mono',monospace;font-size:22px;}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--green-bg);
+    color:var(--green);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    padding:5px 10px;
+    border-radius:20px;
+    margin-top:10px;
+    width:fit-content;
+  }
+  .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green);}
+
+  /* panels */
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:24px 26px 20px;
+    margin-bottom:20px;
+  }
+  .panel-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;flex-wrap:wrap;gap:8px;}
+  .panel-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;}
+  .panel-note{font-size:12.5px;color:var(--muted);}
+  .legend-row{display:flex;gap:18px;font-size:12.5px;color:var(--muted);}
+  .legend-item{display:flex;align-items:center;gap:6px;}
+  .dot{width:9px;height:9px;border-radius:50%;}
+
+  .grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;}
+  @media(max-width:900px){.grid-2{grid-template-columns:1fr;}}
+
+  canvas{max-height:280px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th{
+    text-align:left;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:8px 10px;
+    border-bottom:1px solid var(--border);
+  }
+  td{padding:11px 10px;border-bottom:1px solid var(--border);font-family:'IBM Plex Mono',monospace;}
+  td.name{font-family:'Inter',sans-serif;font-weight:500;}
+  tr:last-child td{border-bottom:none;}
+  .pos{color:var(--red);font-weight:600;}
+
+  footer{
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    font-size:12.5px;
+    line-height:1.6;
+  }
+  footer b{color:var(--text);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Promo Analysis · Merchandising / Marketing &amp; Digital</div>
+  <h1>Circle Week — Electronics Deal Days</h1>
+  <div class="subhead">Test-vs-control read on the 13-week Electronics promotion across 60 stores.
+  Difference-in-differences design, validated against a placebo check on every non-participating category.</div>
+
+  <div class="hero">
+    <div class="tag">
+      <div class="tag-label">Net incremental lift</div>
+      <div class="tag-value" id="tagValue">—</div>
+      <div class="tag-sub">vs. control stores, post-promo</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Incremental revenue</div>
+      <div class="stat-value" id="statRevenue">—</div>
+      <div class="stat-label" style="margin-top:8px;">Test stores, 13-week post period</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Sample</div>
+      <div class="stat-value" id="statSample">—</div>
+      <div class="stat-label" style="margin-top:8px;">Test / Control stores</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Statistical significance</div>
+      <div class="stat-value mono" id="statP">—</div>
+      <span class="badge">Significant, p &lt; 0.001</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">Weekly revenue index — Electronics (Week 1 = 100)</div>
+      <div class="legend-row">
+        <div class="legend-item"><span class="dot" style="background:var(--red)"></span>Test</div>
+        <div class="legend-item"><span class="dot" style="background:var(--teal)"></span>Control</div>
+      </div>
+    </div>
+    <canvas id="trendChart"></canvas>
+    <div class="panel-note" style="margin-top:12px;">Promo window begins week 14 (Apr 6). Lines track together pre-promo, then diverge — the signature of a real treatment effect rather than a pre-existing trend.</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Lift is isolated to Electronics</div>
+        <div class="panel-note">Placebo check, all 8 categories</div>
+      </div>
+      <canvas id="catChart"></canvas>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Lift holds across every region</div>
+        <div class="panel-note">Test − Control, pct pts</div>
+      </div>
+      <canvas id="regionChart"></canvas>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">Top 5 test stores by lift</div>
+      <div class="panel-note">Candidates for a qualitative execution review</div>
+    </div>
+    <table>
+      <thead><tr><th>Store</th><th>Region</th><th>Lift</th></tr></thead>
+      <tbody id="moversBody"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <b>Method:</b> Difference-in-differences on store-clustered weekly revenue (13 weeks pre / 13 weeks post), 28 test stores vs 32 control stores, randomized at the store level. Placebo test on non-Electronics categories confirms no spillover effect. Full SQL and statistical test scripts available in the project repo.
+  </footer>
+
+</div>
+
+<script>
+const DATA = {"kpi": {"did_lift_pct": 14.9, "n_test": 28, "n_ctrl": 32, "incremental_revenue": 917470.0, "p_value": "< 0.000001"}, "trend": {"Test": {"weeks": ["2026-01-05", "2026-01-12", "2026-01-19", "2026-01-26", "2026-02-02", "2026-02-09", "2026-02-16", "2026-02-23", "2026-03-02", "2026-03-09", "2026-03-16", "2026-03-23", "2026-03-30", "2026-04-06", "2026-04-13", "2026-04-20", "2026-04-27", "2026-05-04", "2026-05-11", "2026-05-18", "2026-05-25", "2026-06-01", "2026-06-08", "2026-06-15", "2026-06-22", "2026-06-29"], "index": [100.0, 102.0, 99.8, 102.0, 99.1, 103.7, 100.0, 103.8, 103.1, 104.0, 105.4, 105.8, 106.0, 121.2, 118.8, 119.0, 121.7, 121.6, 123.2, 123.7, 123.6, 124.6, 123.8, 124.2, 129.7, 128.9]}, "Control": {"weeks": ["2026-01-05", "2026-01-12", "2026-01-19", "2026-01-26", "2026-02-02", "2026-02-09", "2026-02-16", "2026-02-23", "2026-03-02", "2026-03-09", "2026-03-16", "2026-03-23", "2026-03-30", "2026-04-06", "2026-04-13", "2026-04-20", "2026-04-27", "2026-05-04", "2026-05-11", "2026-05-18", "2026-05-25", "2026-06-01", "2026-06-08", "2026-06-15", "2026-06-22", "2026-06-29"], "index": [100.0, 97.9, 102.0, 100.4, 102.5, 100.8, 101.4, 101.3, 102.4, 102.4, 102.9, 103.3, 104.3, 104.9, 103.8, 103.5, 106.3, 106.6, 104.8, 108.1, 107.7, 108.0, 107.8, 109.7, 109.0, 109.9]}}, "region": {"Midwest": {"Test": 21.1, "Control": 5.5}, "Northeast": {"Test": 17.7, "Control": 6.7}, "South": {"Test": 20.3, "Control": 4.1}, "West": {"Test": 21.0, "Control": 4.4}}, "category_lift": [{"category": "Electronics", "lift": 14.9}, {"category": "Hardlines", "lift": 0.9}, {"category": "Apparel & Accessories", "lift": 0.3}, {"category": "Toys", "lift": -0.2}, {"category": "Grocery & Essentials", "lift": -0.5}, {"category": "Home", "lift": -0.8}, {"category": "Beauty & Personal Care", "lift": -1.0}, {"category": "Softlines", "lift": -1.0}], "top_movers": [{"store_id": "T1022", "region": "West", "pct_change": 26.8}, {"store_id": "T1037", "region": "Midwest", "pct_change": 25.6}, {"store_id": "T1045", "region": "West", "pct_change": 24.3}, {"store_id": "T1054", "region": "South", "pct_change": 23.0}, {"store_id": "T1004", "region": "Northeast", "pct_change": 22.6}]};
+
+// ---- KPIs ----
+document.getElementById('tagValue').textContent = '+' + DATA.kpi.did_lift_pct + '%';
+document.getElementById('statRevenue').textContent = '$' + (DATA.kpi.incremental_revenue/1000).toFixed(0) + 'K';
+document.getElementById('statSample').textContent = DATA.kpi.n_test + ' / ' + DATA.kpi.n_ctrl;
+document.getElementById('statP').textContent = 'p ' + DATA.kpi.p_value;
+
+// ---- Chart defaults ----
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#8b8d95';
+Chart.defaults.borderColor = '#26282e';
+
+// ---- Trend chart ----
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: DATA.trend.Test.weeks.map(w => new Date(w).toLocaleDateString('en-US',{month:'short',day:'numeric'})),
+    datasets: [
+      {
+        label: 'Test',
+        data: DATA.trend.Test.index,
+        borderColor: '#e23744',
+        backgroundColor: 'rgba(226,55,68,.08)',
+        borderWidth: 2.5,
+        pointRadius: 0,
+        tension: .25,
+        fill: true,
+      },
+      {
+        label: 'Control',
+        data: DATA.trend.Control.index,
+        borderColor: '#3ec1b3',
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        borderDash: [4,3],
+        pointRadius: 0,
+        tension: .25,
+      }
+    ]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{display:false},
+      annotation:{},
+    },
+    scales:{
+      x:{ grid:{color:'#1e2025'}, ticks:{maxTicksLimit:9, font:{size:11}} },
+      y:{ grid:{color:'#1e2025'}, ticks:{font:{size:11}}, title:{display:true,text:'Index (Wk 1 = 100)',color:'#8b8d95',font:{size:11}} }
+    }
+  }
+});
+
+// ---- Category placebo chart ----
+const catSorted = DATA.category_lift;
+new Chart(document.getElementById('catChart'), {
+  type:'bar',
+  data:{
+    labels: catSorted.map(c=>c.category),
+    datasets:[{
+      data: catSorted.map(c=>c.lift),
+      backgroundColor: catSorted.map(c=> c.category==='Electronics' ? '#e23744' : '#33353b'),
+      borderRadius: 4,
+      maxBarThickness: 22,
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{ grid:{color:'#1e2025'}, title:{display:true,text:'Test − Control lift (pct pts)',color:'#8b8d95',font:{size:11}} },
+      y:{ grid:{display:false}, ticks:{font:{size:11.5}} }
+    }
+  }
+});
+
+// ---- Region chart ----
+const regions = Object.keys(DATA.region);
+new Chart(document.getElementById('regionChart'), {
+  type:'bar',
+  data:{
+    labels: regions,
+    datasets:[
+      { label:'Test', data: regions.map(r=>DATA.region[r].Test), backgroundColor:'#e23744', borderRadius:4, maxBarThickness:26 },
+      { label:'Control', data: regions.map(r=>DATA.region[r].Control), backgroundColor:'#33353b', borderRadius:4, maxBarThickness:26 },
+    ]
+  },
+  options:{
+    plugins:{legend:{display:true, position:'top', align:'end', labels:{boxWidth:9,boxHeight:9,font:{size:11.5}}}},
+    scales:{
+      x:{ grid:{display:false}, ticks:{font:{size:11.5}} },
+      y:{ grid:{color:'#1e2025'}, title:{display:true,text:'Revenue % change',color:'#8b8d95',font:{size:11}} }
+    }
+  }
+});
+
+// ---- Top movers table ----
+const tbody = document.getElementById('moversBody');
+DATA.top_movers.forEach(m=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="name">${m.store_id}</td><td>${m.region}</td><td class="pos">+${m.pct_change}%</td>`;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
