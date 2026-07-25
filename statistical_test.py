@@ -20,8 +20,8 @@ import numpy as np
 from scipy import stats
 import statsmodels.formula.api as smf
 
-sales = pd.read_csv("/home/claude/target_promo_project/data/sales_weekly.csv")
-stores = pd.read_csv("/home/claude/target_promo_project/data/stores.csv")
+sales = pd.read_csv("sales_weekly.csv")
+stores = pd.read_csv("stores.csv")
 
 elec = sales[sales["category_name"] == "Electronics"].copy()
 
