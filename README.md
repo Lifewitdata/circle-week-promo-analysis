@@ -133,10 +133,6 @@ cd ../dashboard && python3 build_dashboard.py
 cd ../docs && python3 build_animation.py
 ```
 
-To run the SQL for real in the cloud instead of DuckDB, see
-**[`docs/BIGQUERY_IMPLEMENTATION_GUIDE.md`](docs/BIGQUERY_IMPLEMENTATION_GUIDE.md)**
-for a full step-by-step walkthrough (GCP project setup → load CSVs → run
-`sql/queries.sql` → optionally connect Looker Studio).
 
 ---
 
