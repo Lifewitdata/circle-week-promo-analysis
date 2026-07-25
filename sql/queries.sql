@@ -1,5 +1,5 @@
 -- =====================================================================
--- Target Circle Week Promotion Effectiveness Analysis
+-- Circle Week Promotion Effectiveness Analysis
 -- BigQuery SQL — Test vs Control, Pre vs Post analysis
 -- Dataset: `target-retail-analytics.promo_analysis`
 -- Tables: sales_weekly, stores, products, promotions
