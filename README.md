@@ -12,7 +12,7 @@ The analysis uses synthetic data. It is not affiliated with Target and contains 
 
 The portfolio workflow has been completed through local analysis, live BigQuery execution, a user-confirmed live Groq run, and Tableau publication.
 
-The corrected implementation is on [`fix/target-retail-analytics`](https://github.com/Lifewitdata/circle-week-promo-analysis/tree/fix/target-retail-analytics), with [PR #1](https://github.com/Lifewitdata/circle-week-promo-analysis/pull/1) awaiting merge. Use that branch for the commands below.
+The corrected implementation has been merged into `main` through [PR #1](https://github.com/Lifewitdata/circle-week-promo-analysis/pull/1). The commands below use the current main branch.
 
 | Component | Status |
 |---|---|
@@ -87,10 +87,10 @@ Promotion cost applies to all modeled treated revenue. These are alternative sen
 
 ## Run the analysis
 
-Clone the corrected implementation branch:
+Clone the repository:
 
 ```bash
-git clone --branch fix/target-retail-analytics https://github.com/Lifewitdata/circle-week-promo-analysis.git
+git clone https://github.com/Lifewitdata/circle-week-promo-analysis.git
 cd circle-week-promo-analysis
 python -m venv .venv
 # Windows PowerShell:
@@ -135,18 +135,18 @@ Live Groq execution was confirmed by the project author. Offline mode remains ex
 
 ## Implementation and documentation
 
-The following links point to the corrected implementation branch:
+Source code, results and documentation:
 
-- [Pipeline and source modules](https://github.com/Lifewitdata/circle-week-promo-analysis/tree/fix/target-retail-analytics/src)
-- [Canonical SQL](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/sql/queries.sql)
-- [Validated results](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/reports/summary.json)
-- [Executive summary](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/reports/executive_summary.md)
-- [Metric definitions](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/metric_definitions.md)
-- [Methodology](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/methodology.md)
-- [BigQuery setup and sandbox guidance](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/BIGQUERY_IMPLEMENTATION_GUIDE.md)
-- [AI workflow](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/AI_WORKFLOW.md)
-- [Data governance](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/governance.md)
-- [Operations and Airflow setup](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/OPERATIONS.md)
+- [Pipeline and source modules](https://github.com/Lifewitdata/circle-week-promo-analysis/tree/main/src)
+- [Canonical SQL](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/sql/queries.sql)
+- [Validated results](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/reports/summary.json)
+- [Executive summary](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/reports/executive_summary.md)
+- [Metric definitions](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/docs/metric_definitions.md)
+- [Methodology](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/docs/methodology.md)
+- [BigQuery setup and sandbox guidance](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/docs/BIGQUERY_IMPLEMENTATION_GUIDE.md)
+- [AI workflow](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/docs/AI_WORKFLOW.md)
+- [Data governance](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/docs/governance.md)
+- [Operations and Airflow setup](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/main/docs/OPERATIONS.md)
 
 Some earlier verification documents predate the live walkthrough. The status table above records the later BigQuery, Groq and Tableau milestones. Native Tableau pixel layout and extract contents were not independently verified in the automated review environment.
 
