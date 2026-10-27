@@ -1,0 +1,33 @@
+category_name,test_group,period,weekly_store_revenue
+Home,Control,Post,24608.043197115392
+Beauty & Personal Care,Control,Pre,12693.664831730766
+Toys,Control,Post,10046.25593749999
+Apparel & Accessories,Test,Post,21245.737609890104
+Beauty & Personal Care,Test,Pre,13630.391456043946
+Softlines,Control,Post,12284.452812499996
+Toys,Test,Post,10707.195439560444
+Apparel & Accessories,Control,Pre,19114.854230769233
+Electronics,Control,Post,16765.96670673076
+Grocery & Essentials,Test,Post,49773.9682692308
+Hardlines,Test,Post,16666.21112637364
+Grocery & Essentials,Control,Post,46713.495312499996
+Hardlines,Control,Pre,14892.891971153855
+Home,Test,Post,26190.380934065928
+Electronics,Test,Post,20335.243104395595
+Softlines,Test,Post,13026.097582417584
+Softlines,Control,Pre,11679.849158653851
+Toys,Test,Pre,10202.762939560434
+Home,Control,Pre,23211.16978365383
+Beauty & Personal Care,Control,Post,13421.282884615373
+Toys,Control,Pre,9543.346610576922
+Apparel & Accessories,Test,Pre,20198.057527472527
+Beauty & Personal Care,Test,Post,14293.323873626385
+Grocery & Essentials,Control,Pre,44384.214375000025
+Hardlines,Control,Post,15508.678533653856
+Home,Test,Pre,24883.07945054946
+Electronics,Test,Pre,16921.5135989011
+Softlines,Test,Pre,12513.752252747263
+Apparel & Accessories,Control,Post,20054.208028846155
+Electronics,Control,Pre,15937.791490384603
+Grocery & Essentials,Test,Pre,47536.098461538444
+Hardlines,Test,Pre,15871.31892857142

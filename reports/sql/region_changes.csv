@@ -1,0 +1,17 @@
+region,test_group,period,weekly_store_revenue
+West,Test,Post,19426.811318681317
+West,Control,Pre,15720.165384615386
+Midwest,Control,Pre,14987.978811188812
+South,Control,Pre,17328.09034188034
+South,Test,Post,20949.83876923077
+Midwest,Test,Pre,17291.991794871796
+Northeast,Test,Pre,16698.89569230769
+Northeast,Control,Pre,15788.51076923077
+Northeast,Control,Post,16842.590576923078
+Midwest,Control,Post,15789.474055944056
+West,Control,Post,16372.71076923077
+West,Test,Pre,16046.77065934066
+South,Control,Post,18066.128034188034
+Northeast,Test,Post,19660.609384615385
+South,Test,Pre,17422.85569230769
+Midwest,Test,Post,20932.94884615385

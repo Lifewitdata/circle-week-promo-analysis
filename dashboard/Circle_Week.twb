@@ -1,0 +1,590 @@
+<?xml version='1.0' encoding='utf-8'?>
+<workbook original-version="18.1" source-build="2021.4.0 (20214.21.1112.1435)" source-platform="win" version="18.1" xmlns:user="http://www.tableausoftware.com/xml/user">
+  <preferences />
+  <datasources>
+    <datasource caption="Weekly revenue" inline="true" name="csv0" version="18.1">
+      <connection class="textscan" directory="Data" filename="weekly_trend.csv" password="" server="" header="yes" separator=",">
+        <relation name="weekly_trend.csv" table="[weekly_trend.csv]" type="table">
+          <columns header="yes" separator=",">
+            <column datatype="string" name="week_start_date" ordinal="0" />
+            <column datatype="string" name="test_group" ordinal="1" />
+            <column datatype="string" name="period" ordinal="2" />
+            <column datatype="real" name="revenue" ordinal="3" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>week_start_date</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[week_start_date]</local-name>
+            <parent-name>[weekly_trend.csv]</parent-name>
+            <remote-alias>week_start_date</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>test_group</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[test_group]</local-name>
+            <parent-name>[weekly_trend.csv]</parent-name>
+            <remote-alias>test_group</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>period</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[period]</local-name>
+            <parent-name>[weekly_trend.csv]</parent-name>
+            <remote-alias>period</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>revenue</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[revenue]</local-name>
+            <parent-name>[weekly_trend.csv]</parent-name>
+            <remote-alias>revenue</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <column datatype="string" name="[week_start_date]" role="dimension" type="nominal" />
+      <column datatype="string" name="[test_group]" role="dimension" type="nominal" />
+      <column datatype="string" name="[period]" role="dimension" type="nominal" />
+      <column datatype="real" name="[revenue]" role="measure" type="quantitative" />
+    </datasource>
+    <datasource caption="Category effects" inline="true" name="csv1" version="18.1">
+      <connection class="textscan" directory="Data" filename="category_effects.csv" password="" server="" header="yes" separator=",">
+        <relation name="category_effects.csv" table="[category_effects.csv]" type="table">
+          <columns header="yes" separator=",">
+            <column datatype="string" name="category" ordinal="0" />
+            <column datatype="real" name="effect_usd_per_store_week" ordinal="1" />
+            <column datatype="real" name="ci_low" ordinal="2" />
+            <column datatype="real" name="ci_high" ordinal="3" />
+            <column datatype="real" name="p_value" ordinal="4" />
+            <column datatype="real" name="is_target" ordinal="5" />
+            <column datatype="real" name="holm_p_value" ordinal="6" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[category]</local-name>
+            <parent-name>[category_effects.csv]</parent-name>
+            <remote-alias>category</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>effect_usd_per_store_week</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[effect_usd_per_store_week]</local-name>
+            <parent-name>[category_effects.csv]</parent-name>
+            <remote-alias>effect_usd_per_store_week</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>ci_low</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[ci_low]</local-name>
+            <parent-name>[category_effects.csv]</parent-name>
+            <remote-alias>ci_low</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>ci_high</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[ci_high]</local-name>
+            <parent-name>[category_effects.csv]</parent-name>
+            <remote-alias>ci_high</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>p_value</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[p_value]</local-name>
+            <parent-name>[category_effects.csv]</parent-name>
+            <remote-alias>p_value</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>is_target</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[is_target]</local-name>
+            <parent-name>[category_effects.csv]</parent-name>
+            <remote-alias>is_target</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>holm_p_value</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[holm_p_value]</local-name>
+            <parent-name>[category_effects.csv]</parent-name>
+            <remote-alias>holm_p_value</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <column datatype="string" name="[category]" role="dimension" type="nominal" />
+      <column datatype="real" name="[effect_usd_per_store_week]" role="measure" type="quantitative" />
+      <column datatype="real" name="[ci_low]" role="measure" type="quantitative" />
+      <column datatype="real" name="[ci_high]" role="measure" type="quantitative" />
+      <column datatype="real" name="[p_value]" role="measure" type="quantitative" />
+      <column datatype="real" name="[is_target]" role="measure" type="quantitative" />
+      <column datatype="real" name="[holm_p_value]" role="measure" type="quantitative" />
+    </datasource>
+    <datasource caption="Regional effects" inline="true" name="csv2" version="18.1">
+      <connection class="textscan" directory="Data" filename="region_effects.csv" password="" server="" header="yes" separator=",">
+        <relation name="region_effects.csv" table="[region_effects.csv]" type="table">
+          <columns header="yes" separator=",">
+            <column datatype="string" name="region" ordinal="0" />
+            <column datatype="real" name="effect_usd_per_store_week" ordinal="1" />
+            <column datatype="real" name="ci_low" ordinal="2" />
+            <column datatype="real" name="ci_high" ordinal="3" />
+            <column datatype="real" name="p_value" ordinal="4" />
+            <column datatype="real" name="n_stores" ordinal="5" />
+            <column datatype="real" name="holm_p_value" ordinal="6" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>region</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[region]</local-name>
+            <parent-name>[region_effects.csv]</parent-name>
+            <remote-alias>region</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>effect_usd_per_store_week</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[effect_usd_per_store_week]</local-name>
+            <parent-name>[region_effects.csv]</parent-name>
+            <remote-alias>effect_usd_per_store_week</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>ci_low</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[ci_low]</local-name>
+            <parent-name>[region_effects.csv]</parent-name>
+            <remote-alias>ci_low</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>ci_high</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[ci_high]</local-name>
+            <parent-name>[region_effects.csv]</parent-name>
+            <remote-alias>ci_high</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>p_value</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[p_value]</local-name>
+            <parent-name>[region_effects.csv]</parent-name>
+            <remote-alias>p_value</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>n_stores</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[n_stores]</local-name>
+            <parent-name>[region_effects.csv]</parent-name>
+            <remote-alias>n_stores</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>holm_p_value</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[holm_p_value]</local-name>
+            <parent-name>[region_effects.csv]</parent-name>
+            <remote-alias>holm_p_value</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <column datatype="string" name="[region]" role="dimension" type="nominal" />
+      <column datatype="real" name="[effect_usd_per_store_week]" role="measure" type="quantitative" />
+      <column datatype="real" name="[ci_low]" role="measure" type="quantitative" />
+      <column datatype="real" name="[ci_high]" role="measure" type="quantitative" />
+      <column datatype="real" name="[p_value]" role="measure" type="quantitative" />
+      <column datatype="real" name="[n_stores]" role="measure" type="quantitative" />
+      <column datatype="real" name="[holm_p_value]" role="measure" type="quantitative" />
+    </datasource>
+    <datasource caption="Cost scenarios" inline="true" name="csv3" version="18.1">
+      <connection class="textscan" directory="Data" filename="scenarios.csv" password="" server="" header="yes" separator=",">
+        <relation name="scenarios.csv" table="[scenarios.csv]" type="table">
+          <columns header="yes" separator=",">
+            <column datatype="string" name="scenario" ordinal="0" />
+            <column datatype="real" name="stores" ordinal="1" />
+            <column datatype="real" name="weeks" ordinal="2" />
+            <column datatype="real" name="incremental_revenue_usd" ordinal="3" />
+            <column datatype="real" name="assumed_gross_margin_rate" ordinal="4" />
+            <column datatype="real" name="assumed_additional_promo_cost_rate" ordinal="5" />
+            <column datatype="real" name="assumed_fixed_cost_per_store" ordinal="6" />
+            <column datatype="real" name="incremental_contribution_usd" ordinal="7" />
+            <column datatype="real" name="break_even_margin_rate" ordinal="8" />
+            <column datatype="string" name="interpretation" ordinal="9" />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class="column">
+            <remote-name>scenario</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[scenario]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>scenario</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>stores</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[stores]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>stores</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>weeks</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[weeks]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>weeks</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>incremental_revenue_usd</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[incremental_revenue_usd]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>incremental_revenue_usd</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>assumed_gross_margin_rate</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[assumed_gross_margin_rate]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>assumed_gross_margin_rate</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>assumed_additional_promo_cost_rate</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[assumed_additional_promo_cost_rate]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>assumed_additional_promo_cost_rate</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>assumed_fixed_cost_per_store</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[assumed_fixed_cost_per_store]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>assumed_fixed_cost_per_store</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>incremental_contribution_usd</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[incremental_contribution_usd]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>incremental_contribution_usd</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>break_even_margin_rate</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[break_even_margin_rate]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>break_even_margin_rate</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class="column">
+            <remote-name>interpretation</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[interpretation]</local-name>
+            <parent-name>[scenarios.csv]</parent-name>
+            <remote-alias>interpretation</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <column datatype="string" name="[scenario]" role="dimension" type="nominal" />
+      <column datatype="real" name="[stores]" role="measure" type="quantitative" />
+      <column datatype="real" name="[weeks]" role="measure" type="quantitative" />
+      <column datatype="real" name="[incremental_revenue_usd]" role="measure" type="quantitative" />
+      <column datatype="real" name="[assumed_gross_margin_rate]" role="measure" type="quantitative" />
+      <column datatype="real" name="[assumed_additional_promo_cost_rate]" role="measure" type="quantitative" />
+      <column datatype="real" name="[assumed_fixed_cost_per_store]" role="measure" type="quantitative" />
+      <column datatype="real" name="[incremental_contribution_usd]" role="measure" type="quantitative" />
+      <column datatype="real" name="[break_even_margin_rate]" role="measure" type="quantitative" />
+      <column datatype="string" name="[interpretation]" role="dimension" type="nominal" />
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name="Weekly revenue">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Weekly revenue | synthetic data</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="Weekly revenue" name="csv0" />
+          </datasources>
+          <datasource-dependencies datasource="csv0">
+            <column datatype="string" name="[week_start_date]" role="dimension" type="nominal" />
+            <column-instance column="[week_start_date]" derivation="None" name="[none:week_start_date:nk]" pivot="key" type="nominal" />
+            <column datatype="real" name="[revenue]" role="measure" type="quantitative" />
+            <column-instance column="[revenue]" derivation="Avg" name="[avg:revenue:qk]" pivot="key" type="quantitative" />
+            <column datatype="string" name="[test_group]" role="dimension" type="nominal" />
+            <column-instance column="[test_group]" derivation="None" name="[none:test_group:nk]" pivot="key" type="nominal" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Line" />
+            <encodings>
+              <color column="[csv0].[none:test_group:nk]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[csv0].[avg:revenue:qk]</rows>
+        <cols>[csv0].[none:week_start_date:nk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Category effects">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Category effects | synthetic data</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="Category effects" name="csv1" />
+          </datasources>
+          <datasource-dependencies datasource="csv1">
+            <column datatype="string" name="[category]" role="dimension" type="nominal" />
+            <column-instance column="[category]" derivation="None" name="[none:category:nk]" pivot="key" type="nominal" />
+            <column datatype="real" name="[effect_usd_per_store_week]" role="measure" type="quantitative" />
+            <column-instance column="[effect_usd_per_store_week]" derivation="Avg" name="[avg:effect_usd_per_store_week:qk]" pivot="key" type="quantitative" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <encodings />
+          </pane>
+        </panes>
+        <rows>[csv1].[none:category:nk]</rows>
+        <cols>[csv1].[avg:effect_usd_per_store_week:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Regional effects">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Regional effects | synthetic data</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="Regional effects" name="csv2" />
+          </datasources>
+          <datasource-dependencies datasource="csv2">
+            <column datatype="string" name="[region]" role="dimension" type="nominal" />
+            <column-instance column="[region]" derivation="None" name="[none:region:nk]" pivot="key" type="nominal" />
+            <column datatype="real" name="[effect_usd_per_store_week]" role="measure" type="quantitative" />
+            <column-instance column="[effect_usd_per_store_week]" derivation="Avg" name="[avg:effect_usd_per_store_week:qk]" pivot="key" type="quantitative" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <encodings />
+          </pane>
+        </panes>
+        <rows>[csv2].[none:region:nk]</rows>
+        <cols>[csv2].[avg:effect_usd_per_store_week:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name="Cost scenarios">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Cost scenarios | synthetic data</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="Cost scenarios" name="csv3" />
+          </datasources>
+          <datasource-dependencies datasource="csv3">
+            <column datatype="string" name="[scenario]" role="dimension" type="nominal" />
+            <column-instance column="[scenario]" derivation="None" name="[none:scenario:nk]" pivot="key" type="nominal" />
+            <column datatype="real" name="[incremental_contribution_usd]" role="measure" type="quantitative" />
+            <column-instance column="[incremental_contribution_usd]" derivation="Avg" name="[avg:incremental_contribution_usd:qk]" pivot="key" type="quantitative" />
+          </datasource-dependencies>
+          <aggregation value="true" />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option="selection-relaxation-allow">
+            <view>
+              <breakdown value="auto" />
+            </view>
+            <mark class="Bar" />
+            <encodings />
+          </pane>
+        </panes>
+        <rows>[csv3].[none:scenario:nk]</rows>
+        <cols>[csv3].[avg:incremental_contribution_usd:qk]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name="Promotion decision brief">
+      <style />
+      <size maxheight="900" maxwidth="1300" minheight="900" minwidth="1300" sizing-mode="fixed" />
+      <zones>
+        <zone h="46000" w="47000" x="1500" y="1500" id="1" name="Weekly revenue" />
+        <zone h="46000" w="47000" x="51500" y="1500" id="2" name="Category effects" />
+        <zone h="46000" w="47000" x="1500" y="51500" id="3" name="Regional effects" />
+        <zone h="46000" w="47000" x="51500" y="51500" id="4" name="Cost scenarios" />
+      </zones>
+    </dashboard>
+  </dashboards>
+  <windows source-height="30">
+    <window class="worksheet" name="Weekly revenue">
+      <viewpoint zoom="entire-view" />
+    </window>
+    <window class="worksheet" name="Category effects">
+      <viewpoint zoom="entire-view" />
+    </window>
+    <window class="worksheet" name="Regional effects">
+      <viewpoint zoom="entire-view" />
+    </window>
+    <window class="worksheet" name="Cost scenarios">
+      <viewpoint zoom="entire-view" />
+    </window>
+    <window class="dashboard" name="Promotion decision brief">
+      <viewpoints>
+        <viewpoint name="Weekly revenue" zoom="entire-view" />
+        <viewpoint name="Category effects" zoom="entire-view" />
+        <viewpoint name="Regional effects" zoom="entire-view" />
+        <viewpoint name="Cost scenarios" zoom="entire-view" />
+      </viewpoints>
+    </window>
+  </windows>
+</workbook>

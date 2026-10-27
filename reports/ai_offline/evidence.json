@@ -1,0 +1,34 @@
+{
+  "mode": "offline_extractive",
+  "selection": {
+    "metric_ids": [
+      "effect",
+      "revenue"
+    ],
+    "action_id": "verify_costs",
+    "citations": [
+      "reports/executive_summary.md#2"
+    ]
+  },
+  "retrieved": [
+    {
+      "id": "reports/executive_summary.md#2",
+      "source": "reports/executive_summary.md",
+      "text": "**Decision:** consider a limited follow-up pilot, subject to verified margins, stock\navailability and promotion costs. Revenue evidence alone does not justify chain-wide rollout.",
+      "score": 0.2475854158599054
+    },
+    {
+      "id": "docs/metric_definitions.md#3",
+      "source": "docs/metric_definitions.md",
+      "text": "**Primary effect:** average weekly test-store post revenue minus test-store pre\nrevenue, less the equivalent control-store change. Units: USD/store/week.\nOLS `revenue ~ is_test * is_post` estimates the same effect for this complete,\nbalanced panel. Standard errors cluster at store level, with t-based intervals.\nDo not aggregate multiple categories and call the result an Electronics effect.",
+      "score": 0.20236637469023627
+    },
+    {
+      "id": "docs/metric_definitions.md#7",
+      "source": "docs/metric_definitions.md",
+      "text": "**Scenario contribution:** estimated incremental revenue \u00d7 assumed gross margin\nminus additional promotion cost rate \u00d7 total treated revenue, minus fixed\nper-store cost \u00d7 stores. Total treated revenue assumes test pre weekly baseline\nplus control weekly change plus treatment effect. Incremental revenue excludes\ncounterfactual revenue; additional promo costs apply to all treated sales.\nDiscounts already reflected in revenue must not be counted again as extra cost.\nThese are conditional assumptions, not measured profit, ROI or forecasts.",
+      "score": 0.1975265127830722
+    }
+  ],
+  "validation": "approved IDs only; all numeric statements rendered from computed facts"
+}

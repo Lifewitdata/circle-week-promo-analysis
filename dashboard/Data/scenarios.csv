@@ -1,0 +1,4 @@
+scenario,stores,weeks,incremental_revenue_usd,assumed_gross_margin_rate,assumed_additional_promo_cost_rate,assumed_fixed_cost_per_store,incremental_contribution_usd,break_even_margin_rate,interpretation
+Lower effect,100,13,2945730.966225417,0.3,0.02,500,313312.76134668844,0.19363836516674185,"Sensitivity scenario, not a rollout prediction"
+Point estimate,100,13,3361220.575892858,0.3,0.02,500,429649.8520535721,0.17217445497773023,"Sensitivity scenario, not a rollout prediction"
+Upper effect,100,13,3776710.1855602995,0.3,0.02,500,545986.9427604555,0.15543319028080124,"Sensitivity scenario, not a rollout prediction"

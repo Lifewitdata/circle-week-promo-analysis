@@ -1,0 +1,13 @@
+store_format,test_group,period,weekly_store_revenue
+SuperTarget,Control,Pre,15322.57717948718
+Target,Test,Pre,16724.853167420817
+Small Format,Control,Pre,15110.875384615385
+Target,Test,Post,20015.66470588235
+Small Format,Control,Post,15773.634615384615
+SuperTarget,Control,Post,16007.410384615385
+Target,Control,Pre,16160.504743589741
+SuperTarget,Test,Pre,17745.15401709402
+Small Format,Test,Post,18060.514615384614
+Target,Control,Post,17038.300128205126
+SuperTarget,Test,Post,21444.38641025641
+Small Format,Test,Pre,14886.745384615384
