@@ -28,6 +28,8 @@ def fake_sdk(monkeypatch,*,bad_effect=False):
             calls.append(('load',table,kwargs['job_config']));return Job()
         def query(self,sql,job_config):
             calls.append(('query',sql,job_config))
+            if 'AS total_rows' in sql:
+                return Job([{'total_rows':12480,'stores':60,'categories':8,'invalid_revenue':0}])
             if 'AS effect_usd_per_store_week' in sql:
                 return Job([{'effect_usd_per_store_week':999 if bad_effect else 2585.5542891483524,'store_growth_gap_pp':14.886089950023866}])
             return Job([{'mock':True}])
@@ -49,7 +51,7 @@ def root_fixture(tmp_path,monkeypatch):
         shutil.copytree(ROOT/name,tmp_path/name)
     shutil.copy2(ROOT/'config.json',tmp_path/'config.json')
     (tmp_path/'reports').mkdir()
-    (tmp_path/'reports/summary.json').write_text(json.dumps({'effect_usd_per_store_week':2585.5542891483524,'store_growth_gap_pp':14.886089950023866}))
+    (tmp_path/'reports/summary.json').write_text(json.dumps({'n_rows':12480,'effect_usd_per_store_week':2585.5542891483524,'store_growth_gap_pp':14.886089950023866}))
     monkeypatch.setattr(runner,'ROOT',tmp_path)
 
 
@@ -88,3 +90,24 @@ def test_cloud_mismatch_fails_and_records_failure(tmp_path,monkeypatch):
         runner.run('valid-project','portfolio',execute=True)
     evidence=json.loads((tmp_path/'reports/live_bigquery/execution_evidence.json').read_text())
     assert evidence['status']=='failed'
+
+
+def test_sandbox_load_retains_clustering_without_date_partitions(tmp_path,monkeypatch):
+    root_fixture(tmp_path,monkeypatch)
+    calls=fake_sdk(monkeypatch)
+    runner.run('valid-project','sandbox',load=True,unpartitioned=True)
+    fact=next(c[2] for c in calls if c[0]=='load' and c[1].endswith('.sales_weekly'))
+    assert not hasattr(fact,'time_partitioning')
+    assert fact.clustering_fields==['category_id','store_id']
+
+
+def test_empty_expired_panel_gives_actionable_error():
+    with pytest.raises(ValueError,match='zero rows.*partition expiry'):
+        runner.check_result('quality',[{'total_rows':0,'invalid_revenue':None}])
+    with pytest.raises(ValueError,match='primary metrics are empty'):
+        runner.check_result('primary_effect',[{'effect_usd_per_store_week':None,'store_growth_gap_pp':None}],{})
+
+
+def test_partial_cloud_panel_rejected():
+    with pytest.raises(ValueError,match='row count differs'):
+        runner.check_result('quality',[{'total_rows':6240,'invalid_revenue':0}],{'n_rows':12480})
