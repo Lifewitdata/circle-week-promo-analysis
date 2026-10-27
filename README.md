@@ -1,146 +1,157 @@
-# Circle Week — retail promotion and rollout analysis
+# Circle Week — Retail Promotion Effectiveness
 
-**SQL · Python · retail experiment analysis · Tableau package · BigQuery workflow · grounded AI reporting**
+**SQL · Python · BigQuery · Tableau · statistical analysis · Groq AI**
 
-Did a synthetic Electronics promotion increase store revenue, and would a rollout
-still make sense after costs? This independent portfolio project follows that
-question from input validation to an executive decision brief. It is not affiliated
-with Target and contains no actual Target sales or customer data.
+[**View the published Tableau dashboard**](https://public.tableau.com/app/profile/isfaque.ansari5273/viz/Circle_Week_Dashboard/Promotiondecisionbrief)
 
-![Results dashboard](dashboard/dashboard.png)
+An independent retail analytics portfolio project asking: **Did an Electronics promotion increase revenue, and does the evidence support a limited follow-up pilot?**
 
-## What the committed data supports
+The analysis uses synthetic data. It is not affiliated with Target and contains no actual Target sales or customer information.
 
-The complete panel contains **12,480 store/category/week rows**, **60 stores**,
-**8 categories**, **13 pre weeks and 13 post weeks** (28 Test, 32 Control stores).
+## Project status
 
-The validated pipeline regenerates all figures in
-[the executive brief](reports/executive_summary.md) and
-[machine-readable results](reports/summary.json).
+The portfolio workflow has been completed through local analysis, live BigQuery execution, a user-confirmed live Groq run, and Tableau publication.
 
-| Measure | Estimate | Interpretation |
-|---|---:|---|
-| Primary additive DiD | $2,585.55/store/week | Synthetic incremental revenue estimate |
-| Store-clustered 95% CI | $2,265.95–$2,905.16/store/week | Uncertainty under the model |
-| Test-store incremental revenue | $941,141.76 | Primary effect × 28 stores × 13 weeks |
-| Average store growth gap | 14.89 percentage points | Secondary comparison; not percent lift |
+The corrected implementation is on [`fix/target-retail-analytics`](https://github.com/Lifewitdata/circle-week-promo-analysis/tree/fix/target-retail-analytics), with [PR #1](https://github.com/Lifewitdata/circle-week-promo-analysis/pull/1) awaiting merge. Use that branch for the commands below.
 
-The old $917K headline was not reproducible from a documented estimator. This
-version uses one defined additive DiD throughout and separately labels percentage
-growth diagnostics. The original randomization algorithm is unavailable: recorded
-test/control labels are observed, not independently verified random assignment.
+| Component | Status |
+|---|---|
+| Python analysis and SQL reconciliation | Completed |
+| Live BigQuery | Executed; primary effect reconciled with local analysis |
+| Live AI | Groq summary execution confirmed by the project author |
+| Tableau | Published; dashboard linked above |
+| Airflow | Optional DAG implemented; live scheduler execution not verified |
 
-**Decision:** consider a limited follow-up pilot after verifying margins, costs and
-stock availability. Revenue evidence alone does not establish profitability or
-justify chain-wide rollout. Synthetic effects may be designed into generated data.
+## Business question and decision
 
-## Run locally
+Compare promotion and control stores before and during the promotion, estimate the revenue effect, check category and regional patterns, and examine whether assumed margins and promotion costs support further testing.
 
-Python 3.12 recommended. No cloud account or model key is needed for core analysis.
+**Recommendation:** consider a limited Electronics pilot after checking margins, costs, stock availability and operating capacity. Revenue evidence alone does not establish profitability or justify a chain-wide rollout.
+
+## Results
+
+The panel contains **12,480 rows**, covering **60 stores**, **8 categories** and **26 weeks**: 13 pre-promotion and 13 promotion weeks. There are 28 test stores and 32 control stores.
+
+| Measure | Result |
+|---|---:|
+| Primary additive difference-in-differences estimate | **$2,585.55 per store per week** |
+| Store-clustered 95% confidence interval | **$2,265.95–$2,905.16 per store per week** |
+| Estimated test-period revenue effect | **$941,141.76** |
+| Average store revenue growth gap | **14.89 percentage points** |
+
+The test-period estimate is the weekly effect multiplied by **28 test stores × 13 weeks**. The growth gap is a separate percentage-point measure, not a percent lift.
+
+These results replace the earlier, unexplained $917K headline. They describe a synthetic case study, not realized business impact.
+
+## Tableau dashboard
+
+[**Open Retail Promotion Effectiveness — Promotion Decision Brief**](https://public.tableau.com/app/profile/isfaque.ansari5273/viz/Circle_Week_Dashboard/Promotiondecisionbrief)
+
+The dashboard includes:
+
+- Weekly Electronics revenue for test and control stores.
+- Category effect estimates with uncertainty available in tooltips.
+- Regional Electronics effect estimates.
+- Three illustrative contribution scenarios.
+- KPI cards for weekly effect, test-period revenue effect and the 95% confidence interval.
+
+Four separate sources support the dashboard: `weekly_trend.csv`, `category_effects.csv`, `region_effects.csv` and `scenarios.csv`. They represent different aggregation levels and should not be joined into one table.
+
+**Refresh:** Tableau Public uses extracted CSV snapshots. It is not a live BigQuery connection. Refresh the source files and republish after new analysis.
+
+The published workbook is the presentation deliverable. The pipeline-generated local Tableau package is an intermediate artifact; native compatibility and extract creation may require manual work.
+
+## Methods and controls
+
+- Validate keys, dates, numeric values, dimension references and the complete weekly panel.
+- Run ten canonical SQL queries and reconcile the primary estimate against Python.
+- Estimate additive difference-in-differences with store-clustered inference and a whole-store bootstrap.
+- Use Welch tests, pretrend diagnostics, category placebo checks and Holm-adjusted exploratory comparisons.
+- Compare simple revenue forecasting baselines using a pre-promotion holdout.
+- Model margin, promotion-cost and fixed-cost sensitivity, with break-even calculations.
+- Retrieve approved project evidence for optional Groq summaries; validate selected fact and action identifiers before rendering numerical statements.
+
+Recorded test/control labels are available, but the original randomization algorithm is not. Diagnostic checks do not establish all causal assumptions or prove the absence of spillovers.
+
+## Cost scenarios
+
+For **100 stores over 13 weeks**, assuming **30% gross margin**, **2% additional promotion cost** and **$500 fixed cost per store**:
+
+| Effect assumption | Illustrative incremental contribution |
+|---|---:|
+| Lower effect | $313,313 |
+| Point estimate | $429,650 |
+| Upper effect | $545,987 |
+
+Promotion cost applies to all modeled treated revenue. These are alternative sensitivity scenarios, not observed profit or rollout forecasts. Do not add the three scenarios together.
+
+## Run the analysis
+
+Clone the corrected implementation branch:
 
 ```bash
+git clone --branch fix/target-retail-analytics https://github.com/Lifewitdata/circle-week-promo-analysis.git
+cd circle-week-promo-analysis
 python -m venv .venv
-# Windows: .venv\Scripts\activate
-# macOS/Linux: source .venv/bin/activate
+# Windows PowerShell:
+.venv\Scripts\Activate.ps1
+# macOS/Linux instead: source .venv/bin/activate
 pip install -r requirements.txt
 python -m src.pipeline
 python -m pytest -q
 python -m src.ai_summary
 ```
 
-Optional reproducible dashboard-control checks (Node 24+): `npm ci` then
-`npm run test:dashboard`. These execute the DOM; they do not replace native browser
-layout inspection. The PNG is visually inspected; Tableau native rendering is unverified.
+Python 3.12 is recommended. Core analysis and offline summaries require no cloud credentials.
 
-Open `dashboard/index.html` directly: it works offline and includes cost what-if
-controls and a region-filtered store-growth table. Open
-`dashboard/Circle_Week.twbx` in Tableau Desktop/Public for the native workbook.
-See [Tableau verification limits and refresh instructions](docs/TABLEAU_GUIDE.md).
+The pipeline produces reports and offline HTML, PNG/PDF and Tableau source outputs. Open `dashboard/index.html` for the offline interactive report. Dashboard DOM checks are available with `npm ci` followed by `npm run test:dashboard`.
 
-Compatibility entry points (`statistical_test.py`, `sql/validate_queries.py`,
-`dashboard/build_dashboard.py`) run the same pipeline and use portable paths.
+## Live BigQuery
 
-## What is implemented
+The completed sandbox run used dataset `circle_week_sandbox` with an **unpartitioned, clustered** fact table. Historical date partitions were unsuitable for the sandbox's automatic partition expiry. Live partition pruning is not claimed.
 
-- **Data contracts:** unique fact/dimension keys, numeric/date validity, assignment
-  consistency, referential integrity, complete weekly panel and equal windows.
-- **SQL warehouse:** ten canonical BigQuery/DuckDB queries using joins, CTEs,
-  conditional aggregation, window functions and safe division. SQL and Python
-  primary results must reconcile before reports publish. TEMP-table example included.
-- **Statistical analysis:** store-clustered DiD with t-based CIs, whole-store
-  bootstrap, Welch test, Cohen's d, pretrend diagnostic, per-category placebo tests
-  and regional comparisons with Holm correction. Null checks do not prove no spillovers.
-- **Decision scenarios:** configurable margin, additional promo costs, fixed costs,
-  rollout stores and duration; effect-bound sensitivity and break-even margin.
-  These are assumptions, not observed profit or rollout forecasts.
-- **Time-aware benchmark:** last-week, four-week mean and drift revenue baselines;
-  last four pre-promotion weeks held out. No post-treatment leakage. This small
-  benchmark does not establish annual demand forecasting capability.
-- **Reporting:** regenerated offline HTML, PNG/PDF, four-sheet Tableau package,
-  CSV outputs, source hashes, executive brief and documented definitions.
-- **Cloud workflow:** explicit BigQuery schemas, partitioned/clustered fact load,
-  dry-runs, billing caps, optional execution, job evidence and result reconciliation.
-- **AI workflow:** local document retrieval, optional Groq selection of approved
-  facts/actions, strict output validation and source provenance. Offline mode is
-  labelled extractive. No unverified LLM prose or model-generated SQL executes.
-- **Operations:** tests, scheduled/manual GitHub Actions refresh and an optional
-  Airflow DAG with retries and concurrency control.
-
-## Optional live BigQuery and AI
+To reproduce in your own dedicated project:
 
 ```bash
 pip install -r requirements-cloud.txt
 gcloud auth application-default login
-python -m src.bigquery_runner --project YOUR_PROJECT --load
-python -m src.bigquery_runner --project YOUR_PROJECT --execute --benchmark
-# Set GROQ_API_KEY and GROQ_MODEL in your shell, then:
-python -m src.ai_summary --live --question "What evidence supports a limited pilot?"
+python -m src.bigquery_runner --project YOUR_PROJECT --dataset circle_week_sandbox --load --unpartitioned
+python -m src.bigquery_runner --project YOUR_PROJECT --dataset circle_week_sandbox --execute --benchmark
 ```
 
-`--load` replaces four tables in the selected dedicated portfolio dataset.
-Default query mode is dry-run; `--execute` incurs query work under a per-query
-cap. [Cloud details and evidence](docs/BIGQUERY_IMPLEMENTATION_GUIDE.md).
-Live outputs are gitignored. No GCP or Groq run is claimed without account evidence.
+`--load` replaces the four tables in the selected dataset. Execution uses per-query billing caps. The default query mode is dry-run. Local job evidence and results are written under `reports/live_bigquery/` and are gitignored.
 
-## Reproducibility and evidence
+The live run returned **$2,585.5542 per store per week** and a **14.8860 percentage-point** store growth gap, consistent with the local analysis.
 
-| Claim | Evidence |
-|---|---|
-| Input accuracy and panel completeness | src/validation.py; reports/data_quality.json |
-| SQL / Python parity | sql/queries.sql; reports/sql/primary_effect.csv; tests/test_project.py |
-| Effect, uncertainty and diagnostics | src/analysis.py; reports/summary.json; reports/category_effects.csv |
-| Commercial decision logic | src/scenarios.py; config.json; reports/scenarios.csv |
-| Temporal validation | src/forecast.py; reports/forecast_predictions.csv |
-| Tableau artifact | src/tableau.py; dashboard/Circle_Week.twbx; native rendering still requires Tableau |
-| Retrieval / AI controls | src/ai_summary.py; reports/ai_offline/; docs/AI_WORKFLOW.md |
-| Cloud implementation | src/bigquery_runner.py; live verification requires GCP |
-| Scheduled workflow | .github/workflows/validate.yml; orchestration/circle_week_dag.py |
+## Live AI summaries
 
-An alternative generator creates a **new fixture**, preserving the committed data:
+Set `GROQ_API_KEY` and `GROQ_MODEL` in your shell. The completed setup used `openai/gpt-oss-120b`.
 
 ```bash
-python data/generate_data.py --output /tmp/circle-fixture --seed 42
-python -m src.pipeline --input-dir /tmp/circle-fixture --output-dir /tmp/circle-results
+python -m src.ai_summary --live --question "What revenue evidence supports a limited pilot?"
 ```
 
-Use a Windows path instead of /tmp when appropriate. Fixtures must use the same
-Electronics category and 2026 date window as the canonical SQL. Do not compare
-different fixtures without checking input hashes. Scenarios and results change
-with the injected effect and seed.
+Live Groq execution was confirmed by the project author. Offline mode remains explicitly extractive. Never commit API keys, cloud credentials or credential files.
 
-## Documentation
+## Implementation and documentation
 
-- [Data dictionary and warehouse grain](docs/data_dictionary.md)
-- [Metric definitions](docs/metric_definitions.md)
-- [Methodology and experiment limitations](docs/methodology.md)
-- [Governance and responsible AI](docs/governance.md)
-- [Tableau guide](docs/TABLEAU_GUIDE.md)
-- [BigQuery guide](docs/BIGQUERY_IMPLEMENTATION_GUIDE.md)
-- [AI workflow and evaluation](docs/AI_WORKFLOW.md)
-- [Operations and Airflow setup](docs/OPERATIONS.md)
-- [Verification record and remaining live checks](docs/VERIFICATION.md)
+The following links point to the corrected implementation branch:
 
-Oracle, Hive/HDFS, Teradata and Spark are not claimed. Git use does not prove
-professional agile-team experience. A small synthetic panel is not a large-scale
-production benchmark. Source code availability, XML validation, mocked tests and
-live execution are distinct evidence levels; see the guides before making resume claims.
+- [Pipeline and source modules](https://github.com/Lifewitdata/circle-week-promo-analysis/tree/fix/target-retail-analytics/src)
+- [Canonical SQL](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/sql/queries.sql)
+- [Validated results](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/reports/summary.json)
+- [Executive summary](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/reports/executive_summary.md)
+- [Metric definitions](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/metric_definitions.md)
+- [Methodology](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/methodology.md)
+- [BigQuery setup and sandbox guidance](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/BIGQUERY_IMPLEMENTATION_GUIDE.md)
+- [AI workflow](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/AI_WORKFLOW.md)
+- [Data governance](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/governance.md)
+- [Operations and Airflow setup](https://github.com/Lifewitdata/circle-week-promo-analysis/blob/fix/target-retail-analytics/docs/OPERATIONS.md)
+
+Some earlier verification documents predate the live walkthrough. The status table above records the later BigQuery, Groq and Tableau milestones. Native Tableau pixel layout and extract contents were not independently verified in the automated review environment.
+
+## Tools
+
+Python, pandas, NumPy, SciPy, statsmodels, DuckDB, SQL, Google BigQuery, Tableau Public, Groq, GitHub Actions and an optional Airflow DAG.
+
+This small synthetic panel is a portfolio demonstration, not a production-scale benchmark.
