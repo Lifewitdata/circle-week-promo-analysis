@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "rows": 12480,
+  "stores": 60,
+  "categories": 8,
+  "weeks": 26,
+  "duplicate_keys": 0,
+  "missing_required_values": 0,
+  "complete_panel": true,
+  "sql_python_reconciled": true
+}

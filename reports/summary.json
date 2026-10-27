@@ -1,0 +1,36 @@
+{
+  "category": "Electronics",
+  "synthetic": true,
+  "n_rows": 12480,
+  "n_test": 28,
+  "n_control": 32,
+  "post_weeks": 13,
+  "effect_usd_per_store_week": 2585.5542891483524,
+  "effect_ci_low": 2265.9468970964745,
+  "effect_ci_high": 2905.1616812002303,
+  "effect_p_value": 2.2587176427895125e-23,
+  "incremental_revenue_usd": 941141.7612500002,
+  "incremental_revenue_ci_low": 824804.6705431168,
+  "incremental_revenue_ci_high": 1057478.8519568837,
+  "effect_pct_of_test_pre_baseline": 15.279686855650198,
+  "test_pre_weekly_revenue": 16921.5135989011,
+  "control_pre_weekly_revenue": 15937.791490384614,
+  "control_weekly_change": 828.1752163461404,
+  "store_growth_gap_pp": 14.886089950023866,
+  "aggregate_growth_gap_pp": 14.977603140528695,
+  "welch_p_value": 3.862838645551617e-24,
+  "cohens_d_growth": 5.0896971484745155,
+  "bootstrap_effect_ci": [
+    2272.253378004808,
+    2908.781696771977
+  ],
+  "pretrend_slope_gap_usd_per_week": 28.660413069072646,
+  "pretrend_p_value": 0.2294839494828421,
+  "assignment_note": "Simulated test/control allocation; original randomization algorithm unavailable.",
+  "input_sha256": {
+    "products.csv": "19a6dae37fdaa5eda4157b7105b7df42f8a18714184989c0af68d25016bb11b9",
+    "promotions.csv": "b1fea70fb4b826b7f76d5b9b18ea4e462c61f89dd12de3d518a7c55bb9ef5f97",
+    "sales_weekly.csv": "96b081919ce33042997f3e4790ae5237275e8a4583f045bcbefbf242a96490e3",
+    "stores.csv": "2c92683c69b7f96b8e8cd22fc3784f0170600a2a62174b7ba50eae6a8c70d29d"
+  }
+}

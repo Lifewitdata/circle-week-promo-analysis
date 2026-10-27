@@ -1,0 +1,40 @@
+// DOM execution tests; this is not a real-browser layout/rendering test.
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const { JSDOM, VirtualConsole } = require('jsdom');
+const root = path.resolve(__dirname, '..');
+const errors = [];
+const console = new VirtualConsole();
+console.on('jsdomError', e => errors.push(e.message));
+const dom = new JSDOM(fs.readFileSync(path.join(root, 'dashboard/index.html'), 'utf8'), {
+  runScripts: 'dangerously', virtualConsole: console
+});
+const d = dom.window.document;
+const expected = JSON.parse(fs.readFileSync(path.join(root, 'reports/summary.json'), 'utf8'));
+const money = x => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(x);
+assert.equal(errors.length, 0, errors.join('\n'));
+assert.equal(d.getElementById('effect').textContent, money(expected.effect_usd_per_store_week));
+assert.equal(d.getElementById('growth').textContent, expected.store_growth_gap_pp.toFixed(2) + ' pp');
+assert.equal(d.querySelectorAll('#storeRows tr').length, expected.n_test + expected.n_control);
+d.getElementById('tab-stores').click();
+assert.equal(d.getElementById('stores').hidden, false);
+assert.equal(d.getElementById('overview').hidden, true);
+const region = d.getElementById('region');
+region.value = 'West';
+region.dispatchEvent(new dom.window.Event('change'));
+assert.ok(d.querySelectorAll('#storeRows tr').length > 0);
+assert.ok([...d.querySelectorAll('#storeRows tr')].every(r => r.children[1].textContent === 'West'));
+d.getElementById('tab-scenarios').click();
+const before = d.getElementById('scenarioResult').textContent;
+d.getElementById('margin').value = '0';
+d.getElementById('margin').dispatchEvent(new dom.window.Event('input'));
+const after = d.getElementById('scenarioResult').textContent;
+assert.notEqual(after, before);
+assert.ok(after.includes('-$'));
+d.getElementById('count').value = '-1';
+d.getElementById('count').dispatchEvent(new dom.window.Event('input'));
+assert.ok(d.getElementById('scenarioResult').textContent.includes('valid assumptions'));
+assert.equal(d.querySelectorAll('script[src],link[href]').length, 0);
+dom.window.close();
+process.stdout.write('Dashboard checks passed: values, tabs, filtering, scenarios, validation and offline dependencies.\n');

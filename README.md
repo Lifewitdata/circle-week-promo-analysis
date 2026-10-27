@@ -1,151 +1,146 @@
-<div align="center">
+# Circle Week — retail promotion and rollout analysis
 
-# 🎯 Circle Week — Electronics Promo Effectiveness Analysis
-### A Test-vs-Control Data Analytics Case Study, built for Target-style Retail Analytics
+**SQL · Python · retail experiment analysis · Tableau package · BigQuery workflow · grounded AI reporting**
 
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-BigQuery-4285F4?style=for-the-badge&logo=googlebigquery&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Complete-4ade80?style=for-the-badge)
-![License](https://img.shields.io/badge/Use-Portfolio%20Project-e23744?style=for-the-badge)
+Did a synthetic Electronics promotion increase store revenue, and would a rollout
+still make sense after costs? This independent portfolio project follows that
+question from input validation to an executive decision brief. It is not affiliated
+with Target and contains no actual Target sales or customer data.
 
-![Net Lift](https://img.shields.io/badge/Net%20Incremental%20Lift-%2B14.9%25-e23744?style=flat-square)
-![Significance](https://img.shields.io/badge/Significance-p%20%3C%200.001-4ade80?style=flat-square)
-![Revenue](https://img.shields.io/badge/Incremental%20Revenue-%24917K-3ec1b3?style=flat-square)
-![Stores](https://img.shields.io/badge/Stores%20Tested-60-8b8d95?style=flat-square)
+![Results dashboard](dashboard/dashboard.png)
 
-<br>
+## What the committed data supports
 
-<img src="docs/trend_animation.gif" width="640" alt="Test vs Control weekly revenue trend, animated">
+The complete panel contains **12,480 store/category/week rows**, **60 stores**,
+**8 categories**, **13 pre weeks and 13 post weeks** (28 Test, 32 Control stores).
 
-*Test stores (red) and control stores (teal) track together for 13 weeks — then diverge the moment the promo launches.*
+The validated pipeline regenerates all figures in
+[the executive brief](reports/executive_summary.md) and
+[machine-readable results](reports/summary.json).
 
-</div>
+| Measure | Estimate | Interpretation |
+|---|---:|---|
+| Primary additive DiD | $2,585.55/store/week | Synthetic incremental revenue estimate |
+| Store-clustered 95% CI | $2,265.95–$2,905.16/store/week | Uncertainty under the model |
+| Test-store incremental revenue | $941,141.76 | Primary effect × 28 stores × 13 weeks |
+| Average store growth gap | 14.89 percentage points | Secondary comparison; not percent lift |
 
----
+The old $917K headline was not reproducible from a documented estimator. This
+version uses one defined additive DiD throughout and separately labels percentage
+growth diagnostics. The original randomization algorithm is unavailable: recorded
+test/control labels are observed, not independently verified random assignment.
 
-## 📌 The Business Question
+**Decision:** consider a limited follow-up pilot after verifying margins, costs and
+stock availability. Revenue evidence alone does not establish profitability or
+justify chain-wide rollout. Synthetic effects may be designed into generated data.
 
-> Did the **"Circle Week — Electronics Deal Days"** promotion actually drive incremental
-> revenue, or would sales have grown anyway? And if it worked, should it be rolled out
-> chain-wide?
+## Run locally
 
-This is a full end-to-end analytics case study — from raw data generation through SQL,
-statistics, dashboarding, and a stakeholder-ready executive summary — built to mirror
-the kind of test-and-measure work a **Data Analytics / Merchandising Insights** team
-does day to day (BigQuery, SQL, Python, A/B testing, BI storytelling).
-
-## 🧭 tl;dr — What we found
-
-| Metric | Result |
-|---|---|
-| **Net incremental lift** | **+14.9%** (Test vs. Control, post-promo) |
-| **Incremental revenue** | **~$917K** over the 13-week test window |
-| **Statistical significance** | **p < 0.000001** (Welch's t-test + clustered DiD regression) |
-| **Effect isolation** | Placebo-tested — ~0% lift in every *other* category |
-| **Regional consistency** | Significant lift in all 4 regions (11–21 pts) |
-| **Driver** | Volume, not price — revenue-per-unit was flat |
-| **Recommendation** | Expand the mechanic to all stores for the next promo cycle |
-
----
-
-## 🗂️ Project Structure
-
-```
-target_promo_project/
-├── data/
-│   ├── generate_data.py          # Synthetic Target-style dataset generator
-│   ├── stores.csv                 # 60 stores — region, format, sq ft, test/control
-│   ├── products.csv               # 8 departments (Electronics, Grocery, etc.)
-│   ├── promotions.csv             # Promo metadata
-│   └── sales_weekly.csv           # 12,480 rows — weekly store × category revenue
-│
-├── sql/
-│   ├── queries.sql                # 10 BigQuery queries (DiD, placebo, region, etc.)
-│   └── validate_queries.py        # DuckDB proof-run of the same logic locally
-│
-├── analysis/
-│   └── statistical_test.py        # t-test, Cohen's d, clustered DiD regression,
-│                                   #   placebo model, region-level significance
-│
-├── dashboard/
-│   ├── build_dashboard.py         # Python/matplotlib dashboard generator
-│   ├── dashboard.png / .pdf       # Rendered static dashboard
-│   ├── index.html                 # Chart.js interactive version (needs internet)
-│   └── data.json                  # Aggregated data feeding both dashboards
-│
-└── docs/
-    ├── executive_summary.docx     # 1-page stakeholder writeup (BLUF + findings)
-    ├── build_exec_summary.js      # Generates the .docx via the `docx` npm package
-    ├── build_animation.py         # Generates the animated hero GIF above
-    ├── trend_animation.gif
-    ├── trend_mini.png
-    └── BIGQUERY_IMPLEMENTATION_GUIDE.md   # Step-by-step: run this for real in GCP
-```
-
----
-
-## 🔬 Methodology
-
-**Design:** Randomized test-vs-control at the store level. 60 stores split
-~50/50, promo targeted **only** the Electronics category, **only** in Test stores,
-**only** in the 13-week post period.
-
-**Why Difference-in-Differences (DiD):** Simple pre/post comparison would confuse
-the promo's effect with normal seasonal growth. DiD nets out the Control group's
-natural change, isolating the number that's actually attributable to the promo.
-
-```
-DiD Lift  =  (% change in Test group)  −  (% change in Control group)
-          =  20.2%  −  5.3%
-          =  14.9%  incremental lift
-```
-
-**Validation checks performed (this is what separates a rigorous analysis from a
-surface-level one):**
-- ✅ **Placebo test** — ran the identical model on every *non*-Electronics category;
-  lift is ~0% and not significant, confirming the effect isn't just "Test stores
-  sell more of everything."
-- ✅ **Clustered standard errors** — regression clusters by `store_id` so the model
-  doesn't overstate confidence from having many correlated weekly observations per store.
-- ✅ **Effect size, not just p-value** — Cohen's d reported alongside significance,
-  since statistical significance alone doesn't tell you if an effect is *meaningful*.
-- ✅ **Volume vs. price decomposition** — checked revenue-per-unit to confirm the lift
-  was driven by more units sold, not a pricing/mix artifact.
-
----
-
-## ▶️ How to Run This Yourself
+Python 3.12 recommended. No cloud account or model key is needed for core analysis.
 
 ```bash
-# 1. Generate the synthetic dataset
-cd data && python3 generate_data.py
-
-# 2. Validate the SQL logic locally (DuckDB — no BigQuery account needed)
-cd ../sql && python3 validate_queries.py
-
-# 3. Run the statistical significance tests
-cd ../analysis && python3 statistical_test.py
-
-# 4. Build the dashboard
-cd ../dashboard && python3 build_dashboard.py
-
-# 5. (Optional) Rebuild the animated GIF
-cd ../docs && python3 build_animation.py
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+python -m src.pipeline
+python -m pytest -q
+python -m src.ai_summary
 ```
 
+Optional reproducible dashboard-control checks (Node 24+): `npm ci` then
+`npm run test:dashboard`. These execute the DOM; they do not replace native browser
+layout inspection. The PNG is visually inspected; Tableau native rendering is unverified.
 
----
+Open `dashboard/index.html` directly: it works offline and includes cost what-if
+controls and a region-filtered store-growth table. Open
+`dashboard/Circle_Week.twbx` in Tableau Desktop/Public for the native workbook.
+See [Tableau verification limits and refresh instructions](docs/TABLEAU_GUIDE.md).
 
-## 🛠️ Tech Stack
+Compatibility entry points (`statistical_test.py`, `sql/validate_queries.py`,
+`dashboard/build_dashboard.py`) run the same pipeline and use portable paths.
 
-`Python` · `pandas` · `numpy` · `scipy` · `statsmodels` · `matplotlib` · `DuckDB` ·
-`BigQuery SQL` · `Chart.js` · `docx` (Node.js)
+## What is implemented
 
----
+- **Data contracts:** unique fact/dimension keys, numeric/date validity, assignment
+  consistency, referential integrity, complete weekly panel and equal windows.
+- **SQL warehouse:** ten canonical BigQuery/DuckDB queries using joins, CTEs,
+  conditional aggregation, window functions and safe division. SQL and Python
+  primary results must reconcile before reports publish. TEMP-table example included.
+- **Statistical analysis:** store-clustered DiD with t-based CIs, whole-store
+  bootstrap, Welch test, Cohen's d, pretrend diagnostic, per-category placebo tests
+  and regional comparisons with Holm correction. Null checks do not prove no spillovers.
+- **Decision scenarios:** configurable margin, additional promo costs, fixed costs,
+  rollout stores and duration; effect-bound sensitivity and break-even margin.
+  These are assumptions, not observed profit or rollout forecasts.
+- **Time-aware benchmark:** last-week, four-week mean and drift revenue baselines;
+  last four pre-promotion weeks held out. No post-treatment leakage. This small
+  benchmark does not establish annual demand forecasting capability.
+- **Reporting:** regenerated offline HTML, PNG/PDF, four-sheet Tableau package,
+  CSV outputs, source hashes, executive brief and documented definitions.
+- **Cloud workflow:** explicit BigQuery schemas, partitioned/clustered fact load,
+  dry-runs, billing caps, optional execution, job evidence and result reconciliation.
+- **AI workflow:** local document retrieval, optional Groq selection of approved
+  facts/actions, strict output validation and source provenance. Offline mode is
+  labelled extractive. No unverified LLM prose or model-generated SQL executes.
+- **Operations:** tests, scheduled/manual GitHub Actions refresh and an optional
+  Airflow DAG with retries and concurrency control.
 
-<div align="center">
+## Optional live BigQuery and AI
 
-*Built as a portfolio project simulating a Data Analytics role spanning*
-*Merchandising, Marketing & Digital, and BI/Advanced Analytics.*
+```bash
+pip install -r requirements-cloud.txt
+gcloud auth application-default login
+python -m src.bigquery_runner --project YOUR_PROJECT --load
+python -m src.bigquery_runner --project YOUR_PROJECT --execute --benchmark
+# Set GROQ_API_KEY and GROQ_MODEL in your shell, then:
+python -m src.ai_summary --live --question "What evidence supports a limited pilot?"
+```
 
-</div>
+`--load` replaces four tables in the selected dedicated portfolio dataset.
+Default query mode is dry-run; `--execute` incurs query work under a per-query
+cap. [Cloud details and evidence](docs/BIGQUERY_IMPLEMENTATION_GUIDE.md).
+Live outputs are gitignored. No GCP or Groq run is claimed without account evidence.
+
+## Reproducibility and evidence
+
+| Claim | Evidence |
+|---|---|
+| Input accuracy and panel completeness | src/validation.py; reports/data_quality.json |
+| SQL / Python parity | sql/queries.sql; reports/sql/primary_effect.csv; tests/test_project.py |
+| Effect, uncertainty and diagnostics | src/analysis.py; reports/summary.json; reports/category_effects.csv |
+| Commercial decision logic | src/scenarios.py; config.json; reports/scenarios.csv |
+| Temporal validation | src/forecast.py; reports/forecast_predictions.csv |
+| Tableau artifact | src/tableau.py; dashboard/Circle_Week.twbx; native rendering still requires Tableau |
+| Retrieval / AI controls | src/ai_summary.py; reports/ai_offline/; docs/AI_WORKFLOW.md |
+| Cloud implementation | src/bigquery_runner.py; live verification requires GCP |
+| Scheduled workflow | .github/workflows/validate.yml; orchestration/circle_week_dag.py |
+
+An alternative generator creates a **new fixture**, preserving the committed data:
+
+```bash
+python data/generate_data.py --output /tmp/circle-fixture --seed 42
+python -m src.pipeline --input-dir /tmp/circle-fixture --output-dir /tmp/circle-results
+```
+
+Use a Windows path instead of /tmp when appropriate. Fixtures must use the same
+Electronics category and 2026 date window as the canonical SQL. Do not compare
+different fixtures without checking input hashes. Scenarios and results change
+with the injected effect and seed.
+
+## Documentation
+
+- [Data dictionary and warehouse grain](docs/data_dictionary.md)
+- [Metric definitions](docs/metric_definitions.md)
+- [Methodology and experiment limitations](docs/methodology.md)
+- [Governance and responsible AI](docs/governance.md)
+- [Tableau guide](docs/TABLEAU_GUIDE.md)
+- [BigQuery guide](docs/BIGQUERY_IMPLEMENTATION_GUIDE.md)
+- [AI workflow and evaluation](docs/AI_WORKFLOW.md)
+- [Operations and Airflow setup](docs/OPERATIONS.md)
+- [Verification record and remaining live checks](docs/VERIFICATION.md)
+
+Oracle, Hive/HDFS, Teradata and Spark are not claimed. Git use does not prove
+professional agile-team experience. A small synthetic panel is not a large-scale
+production benchmark. Source code availability, XML validation, mocked tests and
+live execution are distinct evidence levels; see the guides before making resume claims.

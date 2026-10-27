@@ -1,206 +1,618 @@
 {
-  "kpi": {
-    "did_lift_pct": 14.9,
+  "summary": {
+    "category": "Electronics",
+    "synthetic": true,
+    "n_rows": 12480,
     "n_test": 28,
-    "n_ctrl": 32,
-    "incremental_revenue": 917470.0,
-    "p_value": "< 0.000001"
-  },
-  "trend": {
-    "Test": {
-      "weeks": [
-        "2026-01-05",
-        "2026-01-12",
-        "2026-01-19",
-        "2026-01-26",
-        "2026-02-02",
-        "2026-02-09",
-        "2026-02-16",
-        "2026-02-23",
-        "2026-03-02",
-        "2026-03-09",
-        "2026-03-16",
-        "2026-03-23",
-        "2026-03-30",
-        "2026-04-06",
-        "2026-04-13",
-        "2026-04-20",
-        "2026-04-27",
-        "2026-05-04",
-        "2026-05-11",
-        "2026-05-18",
-        "2026-05-25",
-        "2026-06-01",
-        "2026-06-08",
-        "2026-06-15",
-        "2026-06-22",
-        "2026-06-29"
-      ],
-      "index": [
-        100.0,
-        102.0,
-        99.8,
-        102.0,
-        99.1,
-        103.7,
-        100.0,
-        103.8,
-        103.1,
-        104.0,
-        105.4,
-        105.8,
-        106.0,
-        121.2,
-        118.8,
-        119.0,
-        121.7,
-        121.6,
-        123.2,
-        123.7,
-        123.6,
-        124.6,
-        123.8,
-        124.2,
-        129.7,
-        128.9
-      ]
-    },
-    "Control": {
-      "weeks": [
-        "2026-01-05",
-        "2026-01-12",
-        "2026-01-19",
-        "2026-01-26",
-        "2026-02-02",
-        "2026-02-09",
-        "2026-02-16",
-        "2026-02-23",
-        "2026-03-02",
-        "2026-03-09",
-        "2026-03-16",
-        "2026-03-23",
-        "2026-03-30",
-        "2026-04-06",
-        "2026-04-13",
-        "2026-04-20",
-        "2026-04-27",
-        "2026-05-04",
-        "2026-05-11",
-        "2026-05-18",
-        "2026-05-25",
-        "2026-06-01",
-        "2026-06-08",
-        "2026-06-15",
-        "2026-06-22",
-        "2026-06-29"
-      ],
-      "index": [
-        100.0,
-        97.9,
-        102.0,
-        100.4,
-        102.5,
-        100.8,
-        101.4,
-        101.3,
-        102.4,
-        102.4,
-        102.9,
-        103.3,
-        104.3,
-        104.9,
-        103.8,
-        103.5,
-        106.3,
-        106.6,
-        104.8,
-        108.1,
-        107.7,
-        108.0,
-        107.8,
-        109.7,
-        109.0,
-        109.9
-      ]
+    "n_control": 32,
+    "post_weeks": 13,
+    "effect_usd_per_store_week": 2585.5542891483524,
+    "effect_ci_low": 2265.9468970964745,
+    "effect_ci_high": 2905.1616812002303,
+    "effect_p_value": 2.2587176427895125e-23,
+    "incremental_revenue_usd": 941141.7612500002,
+    "incremental_revenue_ci_low": 824804.6705431168,
+    "incremental_revenue_ci_high": 1057478.8519568837,
+    "effect_pct_of_test_pre_baseline": 15.279686855650198,
+    "test_pre_weekly_revenue": 16921.5135989011,
+    "control_pre_weekly_revenue": 15937.791490384614,
+    "control_weekly_change": 828.1752163461404,
+    "store_growth_gap_pp": 14.886089950023866,
+    "aggregate_growth_gap_pp": 14.977603140528695,
+    "welch_p_value": 3.862838645551617e-24,
+    "cohens_d_growth": 5.0896971484745155,
+    "bootstrap_effect_ci": [
+      2272.253378004808,
+      2908.781696771977
+    ],
+    "pretrend_slope_gap_usd_per_week": 28.660413069072646,
+    "pretrend_p_value": 0.2294839494828421,
+    "assignment_note": "Simulated test/control allocation; original randomization algorithm unavailable.",
+    "input_sha256": {
+      "products.csv": "19a6dae37fdaa5eda4157b7105b7df42f8a18714184989c0af68d25016bb11b9",
+      "promotions.csv": "b1fea70fb4b826b7f76d5b9b18ea4e462c61f89dd12de3d518a7c55bb9ef5f97",
+      "sales_weekly.csv": "96b081919ce33042997f3e4790ae5237275e8a4583f045bcbefbf242a96490e3",
+      "stores.csv": "2c92683c69b7f96b8e8cd22fc3784f0170600a2a62174b7ba50eae6a8c70d29d"
     }
   },
-  "region": {
-    "Midwest": {
-      "Test": 21.1,
-      "Control": 5.5
-    },
-    "Northeast": {
-      "Test": 17.7,
-      "Control": 6.7
-    },
-    "South": {
-      "Test": 20.3,
-      "Control": 4.1
-    },
-    "West": {
-      "Test": 21.0,
-      "Control": 4.4
-    }
-  },
-  "category_lift": [
+  "regions": [
     {
-      "category": "Electronics",
-      "lift": 14.9
+      "region": "Midwest",
+      "effect_usd_per_store_week": 2839.461806526814,
+      "ci_low": 2175.822938530903,
+      "ci_high": 3503.1006745227255,
+      "p_value": 1.0488085097638223e-07,
+      "n_stores": 17,
+      "holm_p_value": 3.146425529291467e-07
     },
     {
-      "category": "Hardlines",
-      "lift": 0.9
+      "region": "Northeast",
+      "effect_usd_per_store_week": 1907.6338846153849,
+      "ci_low": 1013.1527498451246,
+      "ci_high": 2802.115019385645,
+      "p_value": 0.0005636509744381114,
+      "n_stores": 13,
+      "holm_p_value": 0.0005636509744381114
     },
     {
-      "category": "Apparel & Accessories",
-      "lift": 0.3
+      "region": "South",
+      "effect_usd_per_store_week": 2788.9453846153947,
+      "ci_low": 2349.13602718726,
+      "ci_high": 3228.7547420435294,
+      "p_value": 9.21357583914796e-11,
+      "n_stores": 19,
+      "holm_p_value": 3.685430335659184e-10
     },
     {
-      "category": "Toys",
-      "lift": -0.2
-    },
-    {
-      "category": "Grocery & Essentials",
-      "lift": -0.5
-    },
-    {
-      "category": "Home",
-      "lift": -0.8
-    },
-    {
-      "category": "Beauty & Personal Care",
-      "lift": -1.0
-    },
-    {
-      "category": "Softlines",
-      "lift": -1.0
+      "region": "West",
+      "effect_usd_per_store_week": 2727.495274725277,
+      "ci_low": 1859.9012730642298,
+      "ci_high": 3595.089276386324,
+      "p_value": 3.6945813524534995e-05,
+      "n_stores": 11,
+      "holm_p_value": 7.389162704906999e-05
     }
   ],
-  "top_movers": [
+  "scenarios": [
     {
-      "store_id": "T1022",
-      "region": "West",
-      "pct_change": 26.8
+      "scenario": "Lower effect",
+      "stores": 100,
+      "weeks": 13,
+      "incremental_revenue_usd": 2945730.966225417,
+      "assumed_gross_margin_rate": 0.3,
+      "assumed_additional_promo_cost_rate": 0.02,
+      "assumed_fixed_cost_per_store": 500,
+      "incremental_contribution_usd": 313312.76134668844,
+      "break_even_margin_rate": 0.19363836516674185,
+      "interpretation": "Sensitivity scenario, not a rollout prediction"
     },
     {
-      "store_id": "T1037",
-      "region": "Midwest",
-      "pct_change": 25.6
+      "scenario": "Point estimate",
+      "stores": 100,
+      "weeks": 13,
+      "incremental_revenue_usd": 3361220.575892858,
+      "assumed_gross_margin_rate": 0.3,
+      "assumed_additional_promo_cost_rate": 0.02,
+      "assumed_fixed_cost_per_store": 500,
+      "incremental_contribution_usd": 429649.8520535721,
+      "break_even_margin_rate": 0.17217445497773023,
+      "interpretation": "Sensitivity scenario, not a rollout prediction"
     },
     {
-      "store_id": "T1045",
-      "region": "West",
-      "pct_change": 24.3
-    },
+      "scenario": "Upper effect",
+      "stores": 100,
+      "weeks": 13,
+      "incremental_revenue_usd": 3776710.1855602995,
+      "assumed_gross_margin_rate": 0.3,
+      "assumed_additional_promo_cost_rate": 0.02,
+      "assumed_fixed_cost_per_store": 500,
+      "incremental_contribution_usd": 545986.9427604555,
+      "break_even_margin_rate": 0.15543319028080124,
+      "interpretation": "Sensitivity scenario, not a rollout prediction"
+    }
+  ],
+  "config": {
+    "seed": 42,
+    "bootstrap_draws": 2000,
+    "rollout_stores": 100,
+    "scenario_weeks": 13,
+    "gross_margin_rate": 0.3,
+    "additional_promo_cost_rate": 0.02,
+    "fixed_cost_per_store": 500,
+    "bigquery_location": "US",
+    "maximum_bytes_billed": 1000000000
+  },
+  "quality": {
+    "status": "passed",
+    "rows": 12480,
+    "stores": 60,
+    "categories": 8,
+    "weeks": 26,
+    "duplicate_keys": 0,
+    "missing_required_values": 0,
+    "complete_panel": true,
+    "sql_python_reconciled": true
+  },
+  "stores": [
     {
-      "store_id": "T1054",
+      "store_id": "T1000",
+      "test_group": "Control",
       "region": "South",
-      "pct_change": 23.0
+      "Post": 181796.34,
+      "Pre": 177915.41999999998,
+      "growth_pct": 2.181328633572077
+    },
+    {
+      "store_id": "T1001",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 228872.64,
+      "Pre": 217381.37,
+      "growth_pct": 5.286225769945241
+    },
+    {
+      "store_id": "T1002",
+      "test_group": "Test",
+      "region": "West",
+      "Post": 189435.54,
+      "Pre": 156580.62,
+      "growth_pct": 20.982749972506177
+    },
+    {
+      "store_id": "T1003",
+      "test_group": "Control",
+      "region": "South",
+      "Post": 242272.11,
+      "Pre": 232747.79,
+      "growth_pct": 4.092120488018369
     },
     {
       "store_id": "T1004",
+      "test_group": "Test",
       "region": "Northeast",
-      "pct_change": 22.6
+      "Post": 280467.04,
+      "Pre": 228688.79,
+      "growth_pct": 22.641359027698726
+    },
+    {
+      "store_id": "T1005",
+      "test_group": "Control",
+      "region": "West",
+      "Post": 182155.69,
+      "Pre": 168862.34,
+      "growth_pct": 7.872300004844179
+    },
+    {
+      "store_id": "T1006",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 309083.34,
+      "Pre": 252057.16,
+      "growth_pct": 22.62430474103574
+    },
+    {
+      "store_id": "T1007",
+      "test_group": "Control",
+      "region": "South",
+      "Post": 243968.95,
+      "Pre": 238420.28,
+      "growth_pct": 2.327264274666563
+    },
+    {
+      "store_id": "T1008",
+      "test_group": "Control",
+      "region": "Northeast",
+      "Post": 257065.88999999998,
+      "Pre": 245392.77000000002,
+      "growth_pct": 4.756912764789267
+    },
+    {
+      "store_id": "T1009",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 176950.57,
+      "Pre": 166351.16,
+      "growth_pct": 6.371707897919077
+    },
+    {
+      "store_id": "T1010",
+      "test_group": "Test",
+      "region": "Midwest",
+      "Post": 210454.47,
+      "Pre": 171882.06,
+      "growth_pct": 22.441207651339525
+    },
+    {
+      "store_id": "T1011",
+      "test_group": "Control",
+      "region": "West",
+      "Post": 224417.07,
+      "Pre": 220223.5,
+      "growth_pct": 1.9042336535383342
+    },
+    {
+      "store_id": "T1012",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 227513.38,
+      "Pre": 193684.24,
+      "growth_pct": 17.466129407328147
+    },
+    {
+      "store_id": "T1013",
+      "test_group": "Test",
+      "region": "West",
+      "Post": 252568.82,
+      "Pre": 213693.66,
+      "growth_pct": 18.192004386091764
+    },
+    {
+      "store_id": "T1014",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 247253.53999999998,
+      "Pre": 239453.58,
+      "growth_pct": 3.2573996179134035
+    },
+    {
+      "store_id": "T1015",
+      "test_group": "Test",
+      "region": "Midwest",
+      "Post": 219945.43,
+      "Pre": 185280.76,
+      "growth_pct": 18.709265873045844
+    },
+    {
+      "store_id": "T1016",
+      "test_group": "Control",
+      "region": "South",
+      "Post": 236080.49,
+      "Pre": 230081.34,
+      "growth_pct": 2.6074039728732457
+    },
+    {
+      "store_id": "T1017",
+      "test_group": "Control",
+      "region": "Northeast",
+      "Post": 177541.91,
+      "Pre": 169325.31,
+      "growth_pct": 4.852552757765505
+    },
+    {
+      "store_id": "T1018",
+      "test_group": "Test",
+      "region": "West",
+      "Post": 205708.61,
+      "Pre": 172389.45,
+      "growth_pct": 19.327841697969326
+    },
+    {
+      "store_id": "T1019",
+      "test_group": "Control",
+      "region": "South",
+      "Post": 261021.44,
+      "Pre": 243381.31,
+      "growth_pct": 7.247939457635422
+    },
+    {
+      "store_id": "T1020",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 296864.22,
+      "Pre": 249369.0,
+      "growth_pct": 19.04616050912502
+    },
+    {
+      "store_id": "T1021",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 180820.35,
+      "Pre": 168390.85,
+      "growth_pct": 7.381339306737855
+    },
+    {
+      "store_id": "T1022",
+      "test_group": "Test",
+      "region": "West",
+      "Post": 254501.6,
+      "Pre": 200787.11,
+      "growth_pct": 26.751961318632468
+    },
+    {
+      "store_id": "T1023",
+      "test_group": "Control",
+      "region": "West",
+      "Post": 271595.54,
+      "Pre": 262390.26,
+      "growth_pct": 3.508239978115024
+    },
+    {
+      "store_id": "T1024",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 319562.89999999997,
+      "Pre": 273641.44,
+      "growth_pct": 16.781617579559583
+    },
+    {
+      "store_id": "T1025",
+      "test_group": "Test",
+      "region": "Northeast",
+      "Post": 255307.55,
+      "Pre": 212041.81,
+      "growth_pct": 20.404343841433903
+    },
+    {
+      "store_id": "T1026",
+      "test_group": "Test",
+      "region": "Midwest",
+      "Post": 277533.89,
+      "Pre": 230115.6,
+      "growth_pct": 20.60629092508288
+    },
+    {
+      "store_id": "T1027",
+      "test_group": "Control",
+      "region": "Northeast",
+      "Post": 210043.13,
+      "Pre": 201964.71,
+      "growth_pct": 3.9999166190964885
+    },
+    {
+      "store_id": "T1028",
+      "test_group": "Control",
+      "region": "Northeast",
+      "Post": 234132.07,
+      "Pre": 222140.08,
+      "growth_pct": 5.398390961234911
+    },
+    {
+      "store_id": "T1029",
+      "test_group": "Control",
+      "region": "South",
+      "Post": 241565.87,
+      "Pre": 229287.93,
+      "growth_pct": 5.354813050996632
+    },
+    {
+      "store_id": "T1030",
+      "test_group": "Control",
+      "region": "South",
+      "Post": 218107.98,
+      "Pre": 210674.88,
+      "growth_pct": 3.528232696750555
+    },
+    {
+      "store_id": "T1031",
+      "test_group": "Control",
+      "region": "West",
+      "Post": 173212.66,
+      "Pre": 165972.5,
+      "growth_pct": 4.362264833029572
+    },
+    {
+      "store_id": "T1032",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 179743.15,
+      "Pre": 166074.72,
+      "growth_pct": 8.230289354093134
+    },
+    {
+      "store_id": "T1033",
+      "test_group": "Test",
+      "region": "Midwest",
+      "Post": 304021.01,
+      "Pre": 257881.43,
+      "growth_pct": 17.89178073039226
+    },
+    {
+      "store_id": "T1034",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 233984.44,
+      "Pre": 216846.96,
+      "growth_pct": 7.903029860321764
+    },
+    {
+      "store_id": "T1035",
+      "test_group": "Control",
+      "region": "Northeast",
+      "Post": 219606.44,
+      "Pre": 193391.37,
+      "growth_pct": 13.555449759728155
+    },
+    {
+      "store_id": "T1036",
+      "test_group": "Test",
+      "region": "Northeast",
+      "Post": 245771.8,
+      "Pre": 216002.81,
+      "growth_pct": 13.781760524319097
+    },
+    {
+      "store_id": "T1037",
+      "test_group": "Test",
+      "region": "Midwest",
+      "Post": 306783.63,
+      "Pre": 244198.44,
+      "growth_pct": 25.62882465588232
+    },
+    {
+      "store_id": "T1038",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 186618.5,
+      "Pre": 180532.55,
+      "growth_pct": 3.371109531217509
+    },
+    {
+      "store_id": "T1039",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 214311.33000000002,
+      "Pre": 176391.28,
+      "growth_pct": 21.497689681712174
+    },
+    {
+      "store_id": "T1040",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 194382.51,
+      "Pre": 183542.05,
+      "growth_pct": 5.906254179900472
+    },
+    {
+      "store_id": "T1041",
+      "test_group": "Test",
+      "region": "West",
+      "Post": 265483.49,
+      "Pre": 217834.32,
+      "growth_pct": 21.87404170288685
+    },
+    {
+      "store_id": "T1042",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 298330.76,
+      "Pre": 248728.03,
+      "growth_pct": 19.942557338632085
+    },
+    {
+      "store_id": "T1043",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 215731.99,
+      "Pre": 209340.71,
+      "growth_pct": 3.0530516496289684
+    },
+    {
+      "store_id": "T1044",
+      "test_group": "Test",
+      "region": "West",
+      "Post": 257969.11,
+      "Pre": 223768.03,
+      "growth_pct": 15.284167269113457
+    },
+    {
+      "store_id": "T1045",
+      "test_group": "Test",
+      "region": "West",
+      "Post": 342172.66,
+      "Pre": 275202.94,
+      "growth_pct": 24.334667354934503
+    },
+    {
+      "store_id": "T1046",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 188644.03,
+      "Pre": 178057.26,
+      "growth_pct": 5.9457109471413805
+    },
+    {
+      "store_id": "T1047",
+      "test_group": "Control",
+      "region": "Midwest",
+      "Post": 224893.07,
+      "Pre": 217309.75999999998,
+      "growth_pct": 3.489631574762231
+    },
+    {
+      "store_id": "T1048",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 287478.66,
+      "Pre": 235686.09,
+      "growth_pct": 21.975234092092567
+    },
+    {
+      "store_id": "T1049",
+      "test_group": "Test",
+      "region": "Northeast",
+      "Post": 255262.05,
+      "Pre": 210664.1,
+      "growth_pct": 21.17017090239863
+    },
+    {
+      "store_id": "T1050",
+      "test_group": "Control",
+      "region": "Northeast",
+      "Post": 259781.55000000002,
+      "Pre": 240641.99,
+      "growth_pct": 7.9535412751531975
+    },
+    {
+      "store_id": "T1051",
+      "test_group": "Control",
+      "region": "Northeast",
+      "Post": 217689.26,
+      "Pre": 204794.06,
+      "growth_pct": 6.296667002939449
+    },
+    {
+      "store_id": "T1052",
+      "test_group": "Control",
+      "region": "South",
+      "Post": 276190.25,
+      "Pre": 259058.93,
+      "growth_pct": 6.612904639110484
+    },
+    {
+      "store_id": "T1053",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 234137.96,
+      "Pre": 195378.58,
+      "growth_pct": 19.838090746692917
+    },
+    {
+      "store_id": "T1054",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 263273.21,
+      "Pre": 214030.71,
+      "growth_pct": 23.00721237620529
+    },
+    {
+      "store_id": "T1055",
+      "test_group": "Test",
+      "region": "South",
+      "Post": 272923.27999999997,
+      "Pre": 226004.71,
+      "growth_pct": 20.759996550514348
+    },
+    {
+      "store_id": "T1056",
+      "test_group": "Test",
+      "region": "Midwest",
+      "Post": 314031.58,
+      "Pre": 259417.07,
+      "growth_pct": 21.052781916008854
+    },
+    {
+      "store_id": "T1057",
+      "test_group": "Control",
+      "region": "South",
+      "Post": 212733.55,
+      "Pre": 205818.69,
+      "growth_pct": 3.359685167561799
+    },
+    {
+      "store_id": "T1058",
+      "test_group": "Test",
+      "region": "Northeast",
+      "Post": 241131.17,
+      "Pre": 218030.71,
+      "growth_pct": 10.595048743362812
+    },
+    {
+      "store_id": "T1059",
+      "test_group": "Control",
+      "region": "Northeast",
+      "Post": 175769.16999999998,
+      "Pre": 164354.83,
+      "growth_pct": 6.944937365089898
     }
   ]
 }
